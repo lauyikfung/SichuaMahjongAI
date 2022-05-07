@@ -1,4 +1,5 @@
 # SichuaMahjongAI
+#### CopyRight® Y. Liu, Z. Li & H. Xi at IIIS, Tsinghua Univ.
 ## Motivation & Background 
 Artificial Intelligence (AI) has achieved great success in many domains, including playing games against human players. AI has defeated human top players in many games, such as Go game, Chess, Texas Hold’em Poker and DoTA. In some other games, such as Japanese mahjong, although AI does not occupy an overwhelming position, it also exceeds the average level of human masters. All members of our group are fond of playing mahjong. So we choose Sichuan mahjong as our research object and we would like to design an AI that can help us a lot on online gaming platforms.
 ## Problem Statement 
