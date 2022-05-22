@@ -59,7 +59,7 @@ def win_env(env):
                 index = i
                 flag = False
                 break
-    return trajectories[index], payoffs[index]
+    return trajectories, payoffs
 
 
 def save_model(dueling_agent, epoch, score):
@@ -122,8 +122,9 @@ def run(args):
             for ts in trajectories[0]:
                 duel_agent.feed(ts)
             if episode % args.evaluate_steps == 0:
-                logger.log_performance(env.timestep, tournament(env, 500)[0])
-    save_model(dueling_agent=duel_agent, epoch=episode)
+                score = tournament(env, 500)[0]
+                logger.log_performance(env.timestep, score)
+    save_model(dueling_agent=duel_agent, epoch=episode, score = 0)
 
 
 if __name__ == "__main__":
