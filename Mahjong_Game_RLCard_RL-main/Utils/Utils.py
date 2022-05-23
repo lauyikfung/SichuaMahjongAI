@@ -261,12 +261,12 @@ def get_three_continue(state):
     return continue_actions
 
 
-def get_first(state):
-    single_actions = []
-    for i in range(27, 34):
-        if state[i].sum() == 1:
-            single_actions.append(i)
-    return single_actions
+# def get_first(state):
+#     single_actions = []
+#     for i in range(27, 34):
+#         if state[i].sum() == 1:
+#             single_actions.append(i)
+#     return single_actions
 
 
 def get_single(state):

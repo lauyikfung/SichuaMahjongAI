@@ -24,7 +24,7 @@ class HelperAgent(object):
         Returns:
             action (int): The action predicted (randomly chosen) by the random agent
         '''
-        good_0_actions = get_first(state['obs'][0])
+        # good_0_actions = get_first(state['obs'][0])
         good_1_actions = get_single(state['obs'][0]) + get_dead_actions(state)  # 最好的行为：单张+死牌+听碰杠吃
         good_2_actions = get_none_1_none(state['obs'][0])  # 次的行为：空有空
         good_3_actions = get_two_continue(state['obs'][0]) + get_1_gap(state['obs'][0])  # 有空有+两个连续的
