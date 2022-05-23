@@ -1,8 +1,8 @@
 
 class MahjongCard:
 
-    info = {'type':  ['dots', 'bamboo', 'characters', 'dragons', 'winds'],
-            'trait': ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'green', 'red', 'white', 'east', 'west', 'north', 'south']
+    info = {'type':  ['dots', 'bamboo', 'characters'],
+            'trait': ['1', '2', '3', '4', '5', '6', '7', '8', '9']
             }
 
     def __init__(self, card_type, trait):
