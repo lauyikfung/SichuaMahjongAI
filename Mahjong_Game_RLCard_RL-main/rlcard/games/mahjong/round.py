@@ -35,17 +35,17 @@ class MahjongRound:
         #pile_len = [sum([len([c for c in p]) for p in pp.pile]) for pp in players]
         #total_len = [i + j for i, j in zip(hand_len, pile_len)]
         if action == 'stand':
-            (valid_act, player, cards) = self.judger.judge_chow(self.dealer, players, self.last_player)
-            if valid_act:
-                self.valid_act = valid_act
-                self.last_cards = cards
-                self.last_player = self.current_player
-                self.current_player = player.player_id
-            else:
-                self.last_player = self.current_player
-                self.current_player = (self.player_before_act + 1) % 4
-                self.dealer.deal_cards(players[self.current_player], 1)
-                self.valid_act = False
+            # (valid_act, player, cards) = self.judger.judge_chow(self.dealer, players, self.last_player)
+            # if valid_act:
+            #     self.valid_act = valid_act
+            #     self.last_cards = cards
+            #     self.last_player = self.current_player
+            #     self.current_player = player.player_id
+            # else:
+            self.last_player = self.current_player
+            self.current_player = (self.player_before_act + 1) % 4
+            self.dealer.deal_cards(players[self.current_player], 1)
+            self.valid_act = False
 
         elif action == 'gong':
             players[self.current_player].gong(self.dealer, self.last_cards)
@@ -57,10 +57,10 @@ class MahjongRound:
             self.last_player = self.current_player
             self.valid_act = False
 
-        elif action == 'chow':
-            players[self.current_player].chow(self.dealer, self.last_cards)
-            self.last_player = self.current_player
-            self.valid_act = False
+        # elif action == 'chow':
+        #     players[self.current_player].chow(self.dealer, self.last_cards)
+        #     self.last_player = self.current_player
+        #     self.valid_act = False
 
         else: # Play game: Proceed to next player
             players[self.current_player].play_card(self.dealer, action)

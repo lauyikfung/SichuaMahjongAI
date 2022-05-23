@@ -9,19 +9,19 @@ for _type in ['bamboo', 'characters', 'dots']:
         card = _type+"-"+_trait
         card_encoding_dict[card] = num
         num += 1
-for _trait in ['green', 'red', 'white']:
-    card = 'dragons-'+_trait
-    card_encoding_dict[card] = num
-    num += 1
+# for _trait in ['green', 'red', 'white']:
+#     card = 'dragons-'+_trait
+#     card_encoding_dict[card] = num
+#     num += 1
 
-for _trait in ['east', 'west', 'north', 'south']:
-    card = 'winds-'+_trait
-    card_encoding_dict[card] = num
-    num += 1
+# for _trait in ['east', 'west', 'north', 'south']:
+#     card = 'winds-'+_trait
+#     card_encoding_dict[card] = num
+#     num += 1
 card_encoding_dict['pong'] = num
-card_encoding_dict['chow'] = num + 1
-card_encoding_dict['gong'] = num + 2
-card_encoding_dict['stand'] = num + 3
+# card_encoding_dict['chow'] = num + 1
+card_encoding_dict['gong'] = num + 1
+card_encoding_dict['stand'] = num + 2
 
 card_decoding_dict = {card_encoding_dict[key]: key for key in card_encoding_dict.keys()}
 
@@ -36,18 +36,18 @@ def init_deck():
                 card.set_index_num(index_num)
                 index_num = index_num + 1
                 deck.append(card)
-        elif _type == 'dragons':
-            for _trait in info['trait'][9:12]:
-                card = Card(_type, _trait)
-                card.set_index_num(index_num)
-                index_num = index_num + 1
-                deck.append(card)
-        else:
-            for _trait in info['trait'][12:]:
-                card = Card(_type, _trait)
-                card.set_index_num(index_num)
-                index_num = index_num + 1
-                deck.append(card)
+        # elif _type == 'dragons':
+        #     for _trait in info['trait'][9:12]:
+        #         card = Card(_type, _trait)
+        #         card.set_index_num(index_num)
+        #         index_num = index_num + 1
+        #         deck.append(card)
+        # else:
+        #     for _trait in info['trait'][12:]:
+        #         card = Card(_type, _trait)
+        #         card.set_index_num(index_num)
+        #         index_num = index_num + 1
+        #         deck.append(card)
     deck = deck * 4
     return deck
 
@@ -66,7 +66,7 @@ def cards2list(cards):
 
 
 def encode_cards(cards):
-    plane = np.zeros((34,4), dtype=int)
+    plane = np.zeros((27,4), dtype=int)
     cards = cards2list(cards)
     for card in list(set(cards)):
         index = card_encoding_dict[card]
