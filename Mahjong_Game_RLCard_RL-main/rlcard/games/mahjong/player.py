@@ -37,17 +37,17 @@ class MahjongPlayer:
         card = self.hand.pop(self.hand.index(card))
         dealer.table.append(card)
 
-    def chow(self, dealer, cards):
-        ''' Perform Chow
-        Args:
-            dealer (object): Dealer
-            Cards (object): The cards to be Chow.
-        '''
-        last_card = dealer.table.pop(-1)
-        for card in cards:
-            if card in self.hand and card != last_card:
-                self.hand.pop(self.hand.index(card))
-        self.pile.append(cards)
+    # def chow(self, dealer, cards):
+    #     ''' Perform Chow
+    #     Args:
+    #         dealer (object): Dealer
+    #         Cards (object): The cards to be Chow.
+    #     '''
+    #     last_card = dealer.table.pop(-1)
+    #     for card in cards:
+    #         if card in self.hand and card != last_card:
+    #             self.hand.pop(self.hand.index(card))
+    #     self.pile.append(cards)
 
     def gong(self, dealer, cards):
         ''' Perform Gong
