@@ -382,7 +382,7 @@ def get_1_gap(state):
 
 def get_my_pai(state):
     pais = []
-    for i in range(34):
+    for i in range(27):
         if state[i].sum() > 0:
             pais.append(i)
     return pais
@@ -567,7 +567,7 @@ def reshape_reward(trajectory, payoff):
             done = False
         # 获取当前状态
         current_state = trajectory[i]
-        good_0_actions = get_first(current_state['obs'][0])
+        # good_0_actions = get_first(current_state['obs'][0])
         good_1_actions = get_single(current_state['obs'][0]) + get_dead_actions(current_state)  # 最好的行为：单张+死牌+听碰杠吃
         good_2_actions = get_none_1_none(current_state['obs'][0])  # 次的行为：空有空
         good_3_actions = get_two_continue(current_state['obs'][0]) + get_1_gap(current_state['obs'][0])  # 有空有+两个连续的
@@ -586,9 +586,9 @@ def reshape_reward(trajectory, payoff):
         # 计算不同的出牌等级
         for j in legal_actions:
             c_legal_actions.append(j)
-            if j in good_0_actions:
-                c_good_0.append(j)
-            elif j in good_1_actions:
+            # if j in good_0_actions:
+            #     c_good_0.append(j)
+            if j in good_1_actions:
                 c_good_1.append(j)
             elif j in good_2_actions:
                 c_good_2.append(j)

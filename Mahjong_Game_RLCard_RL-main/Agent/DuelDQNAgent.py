@@ -302,8 +302,8 @@ class DUELingConvNet(nn.Module):
         self.conv3 = nn.Conv2d(state_size[0], 1, kernel_size=(3, 4), stride=(1, 1))
         self.conv4 = nn.Conv2d(state_size[0], 1, kernel_size=(4, 4), stride=(1, 1))
         # 独享的网络层
-        self.fc3_adv = nn.Linear(130, n_actions * 2)
-        self.fc3_val = nn.Linear(130, n_actions * 2)
+        self.fc3_adv = nn.Linear(102, n_actions * 2)
+        self.fc3_val = nn.Linear(102, n_actions * 2)
         self.fc4_adv = nn.Linear(n_actions * 2, n_actions)
         self.fc4_val = nn.Linear(n_actions * 2, 1)
         # 设置激活函数

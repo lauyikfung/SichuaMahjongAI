@@ -74,7 +74,7 @@ class MahjongEnv(Env):
             action (string): the action that will be passed to the game engine.
         '''
         action = self.de_action_id[action_id]
-        if action_id < 34:
+        if action_id < 27:
             candidates = self.game.get_legal_actions(self.game.get_state(self.game.round.current_player))
             for card in candidates:
                 if card.get_str() == action:

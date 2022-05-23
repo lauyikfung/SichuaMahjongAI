@@ -11,34 +11,34 @@ from Agent.HelperTwo import HelperAgent
 
 is_training = False
 action_map = {}
-for i in range(38):
+for i in range(30):
     if (i >= 0) & (i <= 8):
         action_map["bamboo-" + str(i + 1)] = i
     if (i >= 9) & (i <= 17):
         action_map["characters-" + str(i % 9 + 1)] = i
     if (i >= 18) & (i <= 26):
         action_map["dots-" + str(i % 18 + 1)] = i
+    # if i == 27:
+    #     action_map['dragons-green'] = i
+    # if i == 28:
+    #     action_map['dragons-red'] = i
+    # if i == 29:
+    #     action_map['dragons-white'] = i
+    # if i == 30:
+    #     action_map['winds-east'] = i
+    # if i == 31:
+    #     action_map['winds-west'] = i
+    # if i == 32:
+    #     action_map['winds-north'] = i
+    # if i == 33:
+    #     action_map['winds-south'] = i
     if i == 27:
-        action_map['dragons-green'] = i
-    if i == 28:
-        action_map['dragons-red'] = i
-    if i == 29:
-        action_map['dragons-white'] = i
-    if i == 30:
-        action_map['winds-east'] = i
-    if i == 31:
-        action_map['winds-west'] = i
-    if i == 32:
-        action_map['winds-north'] = i
-    if i == 33:
-        action_map['winds-south'] = i
-    if i == 34:
         action_map['pong'] = i
-    if i == 35:
+    if i == 28:
         action_map['chow'] = i
-    if i == 36:
+    if i == 29:
         action_map['gong'] = i
-    if i == 37:
+    if i == 30:
         action_map['stand'] = i
 
 
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("Dueling DQN model")
     parser.add_argument('--env', type=str, default='mahjong')
     parser.add_argument('--seed', type=int, default=2021)
-    parser.add_argument('--num_episodes', type=int, default=100000)
+    parser.add_argument('--num_episodes', type=int, default=10)
     parser.add_argument('--evaluate_steps', type=int, default=300)
 
     args = parser.parse_args()
