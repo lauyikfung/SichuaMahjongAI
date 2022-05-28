@@ -98,10 +98,11 @@ def run(args):
     for _ in range(env.num_players-1):
         agents.append(RandomAgent(num_actions=env.num_actions))
     env.set_agents(agents)
-    cut_episode = int((args.num_episodes + 1) / 2)
+    # cut_episode = int((args.num_episodes + 1) / 2)
+    cut_episode = args.num_episodes + 1 # 先让他全部学习 HelperAgent 以便调试
     with Logger(os.path.join(os.getcwd(), 'Logger')) as logger:
         for episode in range(1, cut_episode):
-            print("epoch: {} / {}, env: {}".format(episode, cut_episode, "env_learn"))
+            print("epoch: {} / {}, env: {}".format(episode, cut_episode - 1, "env_learn"))
             # 前1/2训练过程学习HelperAgent的操作
             trajectories, payoffs = env_learn.run()
             trajectories = reshape_reward(trajectories[0], payoffs[0])
@@ -132,7 +133,7 @@ if __name__ == "__main__":
     parser.add_argument('--env', type=str, default='mahjong')
     parser.add_argument('--seed', type=int, default=2021)
     parser.add_argument('--num_episodes', type=int, default=10)
-    parser.add_argument('--evaluate_steps', type=int, default=300)
+    parser.add_argument('--evaluate_steps', type=int, default=1)
 
     args = parser.parse_args()
     run(args)
