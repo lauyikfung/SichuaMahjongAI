@@ -73,6 +73,7 @@ def save_model(dueling_agent, epoch, score):
 
 def run(args):
     device = get_device()
+    print(device)
     # 设置第一阶段的麻将环境
     env_learn = rlcard.make(args.env, config={'seed': 2021})
     agents = [HelperAgent(num_actions=env_learn.num_actions)]
