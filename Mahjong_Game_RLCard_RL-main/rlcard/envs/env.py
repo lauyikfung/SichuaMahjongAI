@@ -136,6 +136,8 @@ class Env(object):
         trajectories = [[] for _ in range(self.num_players)]
         state, player_id = self.reset()
 
+        # print(state, player_id)
+
         # Loop to play the game
         trajectories[player_id].append(state)
         while not self.is_over():
@@ -144,6 +146,8 @@ class Env(object):
                 action, _ = self.agents[player_id].eval_step(state)
             else:
                 action = self.agents[player_id].step(state)
+            
+            # print(action)
 
             # Environment steps
             next_state, next_player_id = self.step(action, self.agents[player_id].use_raw)

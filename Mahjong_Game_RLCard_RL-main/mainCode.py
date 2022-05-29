@@ -35,10 +35,8 @@ for i in range(30):
     if i == 27:
         action_map['pong'] = i
     if i == 28:
-        action_map['chow'] = i
-    if i == 29:
         action_map['gong'] = i
-    if i == 30:
+    if i == 29:
         action_map['stand'] = i
 
 
@@ -82,6 +80,9 @@ def run(args):
     env_learn.set_agents(agents)
     # 设置第二阶段的麻将环境，不用Helper
     env = rlcard.make(args.env, config={'seed': 2021})
+    print(env)
+    print(env.name)
+    print(env.state_shape)
     duel_agent = DuelDQNAgent(replay_memory_size=20000,
                               replay_memory_init_size=8000,
                               update_target_estimator_every=100,
@@ -99,8 +100,10 @@ def run(args):
     for _ in range(env.num_players-1):
         agents.append(RandomAgent(num_actions=env.num_actions))
     env.set_agents(agents)
-    # cut_episode = int((args.num_episodes + 1) / 2)
-    cut_episode = args.num_episodes + 1 # 先让他全部学习 HelperAgent 以便调试
+    # tournament(env, 1)
+    # return
+    cut_episode = int((args.num_episodes + 1) / 2)
+    # cut_episode = args.num_episodes + 1 # 先让他全部学习 HelperAgent 以便调试
     with Logger(os.path.join(os.getcwd(), 'Logger')) as logger:
         for episode in range(1, cut_episode):
             print("epoch: {} / {}, env: {}".format(episode, cut_episode - 1, "env_learn"))
@@ -113,6 +116,7 @@ def run(args):
                 score = tournament(env, 200)[0]
                 save_model(duel_agent, episode, score)
                 logger.log_performance(env.timestep, score)
+                
         for episode in range(cut_episode, args.num_episodes + 1):
             print("epoch: {} / {}, env: {}".format(episode, args.num_episodes, "env_battle"))
             # 后1/2训练过程学习自己的操作

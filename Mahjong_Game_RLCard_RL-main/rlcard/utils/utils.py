@@ -219,6 +219,7 @@ def tournament(env, num):
             counter += 1
     for i, _ in enumerate(payoffs):
         payoffs[i] /= counter
+    # print(payoffs)
     return payoffs
 
 def plot_curve(csv_path, save_path, algorithm):
