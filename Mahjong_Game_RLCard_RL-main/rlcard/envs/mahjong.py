@@ -56,12 +56,17 @@ class MahjongEnv(Env):
         Returns:
             payoffs (list): a list of payoffs for each player
         '''
-        _, player, _ = self.game.judger.judge_game(self.game)
+        _, player, val = self.game.judger.judge_game(self.game)
+        value = val[player]
         if player == -1:
             payoffs = [0, 0, 0, 0]
         else:
-            payoffs = [-1, -1, -1, -1]
-            payoffs[player] = 1
+            if len(self.game.dealer.deck) <= 1:
+              value = max(8, value * 2)
+            if player == self.game.round.current_player:
+              value += 1
+            payoffs = [-value, -value, -value, -value]
+            payoffs[player] = value * 3
         return np.array(payoffs)
 
     def _decode_action(self, action_id):
