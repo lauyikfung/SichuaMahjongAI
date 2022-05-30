@@ -31,7 +31,7 @@ def lose_env(env):
     cnt = 0
     while payoffs[0] < 1:
         trajectories, payoffs = env.run(is_training=False)
-        cnt += 1
+        #cnt += 1
     return trajectories, payoffs
 
 
