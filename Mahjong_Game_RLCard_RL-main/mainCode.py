@@ -18,27 +18,11 @@ for i in range(30):
         action_map["characters-" + str(i % 9 + 1)] = i
     if (i >= 18) & (i <= 26):
         action_map["dots-" + str(i % 18 + 1)] = i
-    # if i == 27:
-    #     action_map['dragons-green'] = i
-    # if i == 28:
-    #     action_map['dragons-red'] = i
-    # if i == 29:
-    #     action_map['dragons-white'] = i
-    # if i == 30:
-    #     action_map['winds-east'] = i
-    # if i == 31:
-    #     action_map['winds-west'] = i
-    # if i == 32:
-    #     action_map['winds-north'] = i
-    # if i == 33:
-    #     action_map['winds-south'] = i
     if i == 27:
         action_map['pong'] = i
     if i == 28:
-        action_map['chow'] = i
-    if i == 29:
         action_map['gong'] = i
-    if i == 30:
+    if i == 29:
         action_map['stand'] = i
 
 
@@ -73,7 +57,7 @@ def save_model(dueling_agent, epoch, score):
 
 def run(args):
     device = get_device()
-    print(device)
+    #device = 'cuda:1'
     # 设置第一阶段的麻将环境
     env_learn = rlcard.make(args.env, config={'seed': 2021})
     agents = [HelperAgent(num_actions=env_learn.num_actions)]
@@ -99,8 +83,8 @@ def run(args):
     for _ in range(env.num_players-1):
         agents.append(RandomAgent(num_actions=env.num_actions))
     env.set_agents(agents)
-    # cut_episode = int((args.num_episodes + 1) / 2)
-    cut_episode = args.num_episodes + 1 # 先让他全部学习 HelperAgent 以便调试
+    cut_episode = int((args.num_episodes + 1) / 2)
+    #cut_episode = args.num_episodes + 1 # 先让他全部学习 HelperAgent 以便调试
     with Logger(os.path.join(os.getcwd(), 'Logger')) as logger:
         for episode in range(1, cut_episode):
             print("epoch: {} / {}, env: {}".format(episode, cut_episode - 1, "env_learn"))
@@ -124,7 +108,7 @@ def run(args):
             for ts in trajectories[0]:
                 duel_agent.feed(ts)
             if episode % args.evaluate_steps == 0:
-                score = tournament(env, 500)[0]
+                score = tournament(env, 50)[0]
                 logger.log_performance(env.timestep, score)
     save_model(dueling_agent=duel_agent, epoch=episode, score = 0)
 
