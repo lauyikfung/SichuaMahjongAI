@@ -28,19 +28,21 @@ for i in range(30):
 
 def lose_env(env):
     payoffs = [0]
+    cnt = 0
     while payoffs[0] < 1:
         trajectories, payoffs = env.run(is_training=False)
+        cnt += 1
     return trajectories, payoffs
 
 
 def win_env(env):
     flag = True
-    index = 0
+    cnt = 0
     while flag:
         trajectories, payoffs = env.run(is_training=False)
+        cnt += 1
         for i in range(len(payoffs)):
-            if payoffs[i] == 1:
-                index = i
+            if payoffs[i] >= 1:
                 flag = False
                 break
     return trajectories, payoffs
@@ -108,7 +110,7 @@ def run(args):
             for ts in trajectories[0]:
                 duel_agent.feed(ts)
             if episode % args.evaluate_steps == 0:
-                score = tournament(env, 50)[0]
+                score = tournament(env, 500)[0]
                 logger.log_performance(env.timestep, score)
     save_model(dueling_agent=duel_agent, epoch=episode, score = 0)
 

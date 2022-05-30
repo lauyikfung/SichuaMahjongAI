@@ -50,7 +50,7 @@ class MahjongJudger:
         players_val = []
         win_player = -1
         for player in game.players:
-            win, val = self.judge_hu(player)
+            win, val = self.judge_hu(player, game)
             players_val.append(val)
             if win:
                 win_player = player.player_id
@@ -60,7 +60,7 @@ class MahjongJudger:
             #player_id = players_val.index(max(players_val))
             return False, win_player, players_val
 
-    def judge_hu(self, player):
+    def judge_hu(self, player, game):
         ''' Judge whether the player has win the game
         Args:
             player (object): Target player
@@ -69,6 +69,8 @@ class MahjongJudger:
             Result (bool): Win or not
             Maximum_score (int): Set count score of the player
         '''
+        if player != game.round.current_player:
+            return False, 0
         pt = 1
         fan = 0
         tile_type_dict = {'dots':0, 'bamboo':0, 'characters':0}

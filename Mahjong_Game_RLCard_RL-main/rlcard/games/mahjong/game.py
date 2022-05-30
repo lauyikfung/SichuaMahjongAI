@@ -113,7 +113,7 @@ class MahjongGame:
         Returns:
             (int): The number of actions. There are 4 actions (call, raise, check and fold)
         '''
-        return 38
+        return 30
 
     def get_num_players(self):
         ''' return the number of players in Mahjong
@@ -138,10 +138,5 @@ class MahjongGame:
             (boolean): True if the game is over
         '''
         win, player, _ = self.judger.judge_game(self)
-        #pile =[sorted([c.get_str() for c in s ]) for s in self.players[player].pile if self.players[player].pile != None]
-        #cards = sorted([c.get_str() for c in self.players[player].hand])
-        #count = len(cards) + sum([len(p) for p in pile])
         self.winner = player
-        #print(win, player, players_val)
-        #print(win, self.round.current_player, player, cards, pile, count)
         return win

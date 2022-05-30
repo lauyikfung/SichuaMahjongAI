@@ -1,7 +1,5 @@
 import numpy as np
 
-from rlcard.games.base import Card
-
 def set_seed(seed):
     if seed is not None:
         import subprocess
