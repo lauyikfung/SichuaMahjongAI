@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from rlcard.utils import *
 
 class Env(object):
@@ -26,18 +27,6 @@ class Env(object):
         '''
         self.allow_step_back = self.game.allow_step_back = config['allow_step_back']
         self.action_recorder = []
-
-        # Game specific configurations
-        # Currently only support blackjack、limit-holdem、no-limit-holdem
-        # TODO support game configurations for all the games
-        supported_envs = ['blackjack', 'leduc-holdem', 'limit-holdem', 'no-limit-holdem']
-        if self.name in supported_envs:
-            _game_config = self.default_game_config.copy()
-            for key in config:
-                if key in _game_config:
-                    _game_config[key] = config[key]
-            self.game.configure(_game_config)
-
         # Get the number of players/actions in this game
         self.num_players = self.game.get_num_players()
         self.num_actions = self.game.get_num_actions()
@@ -77,7 +66,6 @@ class Env(object):
         '''
         if not raw_action:
             action = self._decode_action(action)
-
         self.timestep += 1
         # Record the action for human interface
         self.action_recorder.append((self.get_player_id(), action))
@@ -135,7 +123,6 @@ class Env(object):
         '''
         trajectories = [[] for _ in range(self.num_players)]
         state, player_id = self.reset()
-
         # Loop to play the game
         trajectories[player_id].append(state)
         while not self.is_over():
@@ -144,7 +131,10 @@ class Env(object):
                 action, _ = self.agents[player_id].eval_step(state)
             else:
                 action = self.agents[player_id].step(state)
+<<<<<<< HEAD
             print("current player is {}".format(player_id))
+=======
+>>>>>>> xhc-lyf
             # Environment steps
             next_state, next_player_id = self.step(action, self.agents[player_id].use_raw)
             # Save action

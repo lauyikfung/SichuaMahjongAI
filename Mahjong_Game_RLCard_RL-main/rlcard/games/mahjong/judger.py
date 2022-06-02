@@ -50,7 +50,7 @@ class MahjongJudger:
         players_val = []
         win_player = -1
         for player in game.players:
-            win, val = self.judge_hu(player)
+            win, val = self.judge_hu(player, game)
             players_val.append(val)
             if win:
                 win_player = player.player_id
@@ -60,7 +60,7 @@ class MahjongJudger:
             #player_id = players_val.index(max(players_val))
             return False, win_player, players_val
 
-    def judge_hu(self, player):
+    def judge_hu(self, player, game):
         ''' Judge whether the player has win the game
         Args:
             player (object): Target player
@@ -69,7 +69,10 @@ class MahjongJudger:
             Result (bool): Win or not
             Maximum_score (int): Set count score of the player
         '''
-        set_count = 0
+        if player != game.round.current_player:
+            return False, 0
+        pt = 1
+        fan = 0
         tile_type_dict = {'dots':0, 'bamboo':0, 'characters':0}
         q = []
         for piles in player.pile:
@@ -101,6 +104,21 @@ class MahjongJudger:
         sum_2 = self.sum_list(bin[9:])
         if (sum_1 + sum_2) % 3 != 2:
           return False, 0
+        for i in bin:
+          if i == 4:
+            fan += 1
+        if sum_1 == 14 or sum_2 == 14:
+          fan += 2
+        bin_1 = bin_3 = 0
+        for i in bin:
+          if i == 1:
+            bin_1 += 1
+          elif i == 3:
+            bin_3 += 1
+        if bin_1 == 0:
+          fan += 1
+          if bin_3 == 0 or len(player.pile) <= 2:#七对子or大吊车
+            fan += 1
         if sum_1 + sum_2 == 14:
             qiduizi = True
             for i in range(18):
@@ -108,15 +126,16 @@ class MahjongJudger:
                     qiduizi = False
                     break
             if qiduizi:
-                return True, 0
+                fan += 2
+                return True, pt * (2 ** (3 if fan > 3 else fan))
         if sum_1 % 3 == 1 or sum_2 % 3 == 1:
             return False, 0
         if sum_1 % 3 == 0:
             if self.check_bin_0(bin[:9]) and self.check_bin_2(bin[9:]):
-                return True, 4
+                return True, pt * (2 ** (3 if fan > 3 else fan))
         else:
             if self.check_bin_0(bin[9:]) and self.check_bin_2(bin[:9]):
-                return True, 4
+                return True, pt * (2 ** (3 if fan > 3 else fan))
         return False, 0
     def check_bin_0(self, list):
         assert len(list) == 9
