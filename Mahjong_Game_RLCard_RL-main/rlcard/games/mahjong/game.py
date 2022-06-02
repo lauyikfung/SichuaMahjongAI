@@ -8,12 +8,13 @@ from rlcard.games.mahjong import Judger
 
 class MahjongGame:
 
-    def __init__(self, allow_step_back=False):
+    def __init__(self, visualize = False, allow_step_back=False):
         '''Initialize the class MajongGame
         '''
         self.allow_step_back = allow_step_back
         self.np_random = np.random.RandomState()
         self.num_players = 4
+        self.visualize = visualize
 
     def init_game(self):
         ''' Initialilze the game of Mahjong
@@ -27,30 +28,33 @@ class MahjongGame:
                 (int): Current player's id
         '''
         # Initialize a dealer that can deal cards
-        self.dealer = Dealer(self.np_random)
+        self.dealer = Dealer(self.np_random, self.visualize)
 
         # Initialize four players to play the game
         self.players = [Player(i, self.np_random) for i in range(self.num_players)]
 
         self.judger = Judger(self.np_random)
-        self.round = Round(self.judger, self.dealer, self.num_players, self.np_random)
+        self.round = Round(self.judger, self.dealer, self.num_players, self.np_random, self.visualize)
 
         # Deal 13 cards to each player to prepare for the game
-        print("dealing cards at the begining of the game--------------------------------------------------------------"
+        if self.visualize:
+            print("dealing cards at the begining of the game--------------------------------------------------------------"
               "-------------------------------------------------------------------------------------------------------"
               "-------------------------------------------------------------------------------------------------------"
               "-------------------------------------------------------------------------------------------------------"
               "-------------------------------------------------------------------------------------------------------")
         for player in self.players:
             self.dealer.deal_cards(player, 13)
-            player.print_hand()
+            if self.visualize:
+                player.print_hand()
 
         # Save the hisory for stepping back to the last state.
         self.history = []
-
-        print("dealing cards at the begining of the game, give player {} the first card ------------------------------------".format(self.round.current_player))
+        if self.visualize:
+            print("dealing cards at the begining of the game, give player {} the first card ------------------------------------".format(self.round.current_player))
         self.dealer.deal_cards(self.players[self.round.current_player], 1)
-        print("dealing at the begining of the game is over-------------------------------------------")
+        if self.visualize:
+            print("dealing at the begining of the game is over-------------------------------------------")
         state = self.get_state(self.round.current_player)
         self.cur_state = state
         return state, self.round.current_player

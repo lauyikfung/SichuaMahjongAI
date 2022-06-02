@@ -61,13 +61,13 @@ def run(args):
     device = get_device()
     #device = 'cuda:1'
     # 设置第一阶段的麻将环境
-    env_learn = rlcard.make(args.env, config={'seed': 2021})
+    env_learn = rlcard.make(args.env, config={'seed': 2021, 'visualize': args.visualize})
     agents = [HelperAgent(num_actions=env_learn.num_actions)]
     for _ in range(env_learn.num_players-1):
         agents.append(RandomAgent(num_actions=env_learn.num_actions))
     env_learn.set_agents(agents)
     # 设置第二阶段的麻将环境，不用Helper
-    env = rlcard.make(args.env, config={'seed': 2021})
+    env = rlcard.make(args.env, config={'seed': 2021, 'visualize': args.visualize})
     duel_agent = DuelDQNAgent(replay_memory_size=20000,
                               replay_memory_init_size=8000,
                               update_target_estimator_every=100,
@@ -121,6 +121,6 @@ if __name__ == "__main__":
     parser.add_argument('--seed', type=int, default=2021)
     parser.add_argument('--num_episodes', type=int, default=2)
     parser.add_argument('--evaluate_steps', type=int, default=1000000)
-
+    parser.add_argument('--visualize', type=bool, default=False)
     args = parser.parse_args()
     run(args)

@@ -26,6 +26,7 @@ class Env(object):
                 TODO: Support more game configurations in the future.
         '''
         self.allow_step_back = self.game.allow_step_back = config['allow_step_back']
+        self.visualize = config['visualize']
         self.action_recorder = []
         # Get the number of players/actions in this game
         self.num_players = self.game.get_num_players()
@@ -131,10 +132,8 @@ class Env(object):
                 action, _ = self.agents[player_id].eval_step(state)
             else:
                 action = self.agents[player_id].step(state)
-<<<<<<< HEAD
-            print("current player is {}".format(player_id))
-=======
->>>>>>> xhc-lyf
+            if self.visualize:
+                print("current player is {}".format(player_id))
             # Environment steps
             next_state, next_player_id = self.step(action, self.agents[player_id].use_raw)
             # Save action

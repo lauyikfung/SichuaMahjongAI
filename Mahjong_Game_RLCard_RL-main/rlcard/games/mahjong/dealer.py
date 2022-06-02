@@ -4,8 +4,9 @@ from rlcard.utils.utils import change_to_china
 class MahjongDealer:
     ''' Initialize a mahjong dealer class
     '''
-    def __init__(self, np_random):
+    def __init__(self, np_random, visualize):
         self.np_random = np_random
+        self.visualize = visualize
         self.deck = init_deck()
         self.shuffle()
         self.table = []
@@ -26,7 +27,8 @@ class MahjongDealer:
             cur_pai = self.deck.pop()
             player.hand.append(cur_pai)
             if num == 1:
-                print("进张 {}".format(change_to_china(cur_pai.trait) + change_to_china(cur_pai.type)))
+                if self.visualize:
+                    print("进张 {}".format(change_to_china(cur_pai.trait) + change_to_china(cur_pai.type)))
 
 
 

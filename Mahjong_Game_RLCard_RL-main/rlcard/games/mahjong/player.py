@@ -23,8 +23,6 @@ class MahjongPlayer:
     def print_hand(self):
         ''' Print the cards in hand in string.
         '''
-        def cmp(x, y):
-            return true
         hand_after_sort = copy.deepcopy(self.hand)
         hand_after_sort.sort(key=lambda x:(x.type, x.trait))
         print("{}, at all he has {} cards".format([c.print_current_card() for c in hand_after_sort], len(self.hand)))
