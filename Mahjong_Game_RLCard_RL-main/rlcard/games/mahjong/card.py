@@ -1,3 +1,4 @@
+from rlcard.utils.utils import change_to_china
 
 class MahjongCard:
 
@@ -27,5 +28,7 @@ class MahjongCard:
     def set_index_num(self, index_num):
 
         self.index_num = index_num
-        
+
+    def print_current_card(self):
+        return change_to_china(self.trait) + change_to_china(self.type)
 

@@ -73,3 +73,4 @@ def encode_cards(cards):
         num = cards.count(card)
         plane[index][:num] = 1
     return plane
+

@@ -1,5 +1,5 @@
 from rlcard.games.mahjong.utils import init_deck
-
+from rlcard.utils.utils import change_to_china
 
 class MahjongDealer:
     ''' Initialize a mahjong dealer class
@@ -23,7 +23,11 @@ class MahjongDealer:
             num (int): The number of cards to be dealed
         '''
         for _ in range(num):
-            player.hand.append(self.deck.pop())
+            cur_pai = self.deck.pop()
+            player.hand.append(cur_pai)
+            if num == 1:
+                print("进张 {}".format(change_to_china(cur_pai.trait) + change_to_china(cur_pai.type)))
+
 
 
 ## For test

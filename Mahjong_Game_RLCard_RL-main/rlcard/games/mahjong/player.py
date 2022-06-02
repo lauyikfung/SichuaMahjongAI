@@ -1,3 +1,5 @@
+import copy
+from rlcard.utils.utils import change_to_china
 
 class MahjongPlayer:
 
@@ -21,12 +23,16 @@ class MahjongPlayer:
     def print_hand(self):
         ''' Print the cards in hand in string.
         '''
-        print([c.get_str() for c in self.hand])
+        def cmp(x, y):
+            return true
+        hand_after_sort = copy.deepcopy(self.hand)
+        hand_after_sort.sort(key=lambda x:(x.type, x.trait))
+        print("{}, at all he has {} cards".format([c.print_current_card() for c in hand_after_sort], len(self.hand)))
 
     def print_pile(self):
         ''' Print the cards in pile of the player in string.
         '''
-        print([[c.get_str() for c in s]for s in self.pile])
+        print([[c.print_current_card() for c in s]for s in self.pile])
 
     def play_card(self, dealer, card):
         ''' Play one card

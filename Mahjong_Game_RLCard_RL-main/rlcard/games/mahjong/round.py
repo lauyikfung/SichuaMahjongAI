@@ -35,6 +35,7 @@ class MahjongRound:
         #pile_len = [sum([len([c for c in p]) for p in pp.pile]) for pp in players]
         #total_len = [i + j for i, j in zip(hand_len, pile_len)]
         if action == 'stand':
+            print("stand，看不懂")
             # (valid_act, player, cards) = self.judger.judge_chow(self.dealer, players, self.last_player)
             # if valid_act:
             #     self.valid_act = valid_act
@@ -48,12 +49,18 @@ class MahjongRound:
             self.valid_act = False
 
         elif action == 'gong':
+            print("杠")
+            players[self.current_player].print_hand()
             players[self.current_player].gong(self.dealer, self.last_cards)
+            players[self.current_player].print_hand()
             self.last_player = self.current_player
             self.valid_act = False
 
         elif action == 'pong':
+            print("碰")
+            players[self.current_player].print_hand()
             players[self.current_player].pong(self.dealer, self.last_cards)
+            players[self.current_player].print_hand()
             self.last_player = self.current_player
             self.valid_act = False
 
@@ -63,7 +70,10 @@ class MahjongRound:
         #     self.valid_act = False
 
         else: # Play game: Proceed to next player
+            print("打{}".format(action.print_current_card()))
+            players[self.current_player].print_hand()
             players[self.current_player].play_card(self.dealer, action)
+            players[self.current_player].print_hand()
             self.player_before_act = self.current_player
             self.last_player = self.current_player
             (valid_act, player, cards) = self.judger.judge_pong_gong(self.dealer, players, self.last_player)
