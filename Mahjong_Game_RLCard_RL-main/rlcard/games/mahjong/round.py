@@ -57,11 +57,6 @@ class MahjongRound:
             self.last_player = self.current_player
             self.valid_act = False
 
-        # elif action == 'chow':
-        #     players[self.current_player].chow(self.dealer, self.last_cards)
-        #     self.last_player = self.current_player
-        #     self.valid_act = False
-
         else: # Play game: Proceed to next player
             players[self.current_player].play_card(self.dealer, action)
             self.player_before_act = self.current_player
