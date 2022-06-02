@@ -36,13 +36,21 @@ class MahjongGame:
         self.round = Round(self.judger, self.dealer, self.num_players, self.np_random)
 
         # Deal 13 cards to each player to prepare for the game
+        print("dealing cards at the begining of the game--------------------------------------------------------------"
+              "-------------------------------------------------------------------------------------------------------"
+              "-------------------------------------------------------------------------------------------------------"
+              "-------------------------------------------------------------------------------------------------------"
+              "-------------------------------------------------------------------------------------------------------")
         for player in self.players:
             self.dealer.deal_cards(player, 13)
+            player.print_hand()
 
         # Save the hisory for stepping back to the last state.
         self.history = []
 
+        print("dealing cards at the begining of the game, give player {} the first card ------------------------------------".format(self.round.current_player))
         self.dealer.deal_cards(self.players[self.round.current_player], 1)
+        print("dealing at the begining of the game is over-------------------------------------------")
         state = self.get_state(self.round.current_player)
         self.cur_state = state
         return state, self.round.current_player
@@ -113,7 +121,7 @@ class MahjongGame:
         Returns:
             (int): The number of actions. There are 4 actions (call, raise, check and fold)
         '''
-        return 38
+        return 30
 
     def get_num_players(self):
         ''' return the number of players in Mahjong

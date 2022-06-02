@@ -219,6 +219,7 @@ def tournament(env, num):
             counter += 1
     for i, _ in enumerate(payoffs):
         payoffs[i] /= counter
+
     return payoffs
 
 def plot_curve(csv_path, save_path, algorithm):
@@ -245,4 +246,32 @@ def plot_curve(csv_path, save_path, algorithm):
             os.makedirs(save_dir)
 
         fig.savefig(save_path)
+
+def change_to_china(x):
+    if x == "1":
+        return "一"
+    elif x == "2":
+        return "二"
+    elif x == "3":
+        return "二"
+    elif x == "4":
+        return "四"
+    elif x == "5":
+        return "五"
+    elif x == "6":
+        return "六"
+    elif x == "7":
+        return "七"
+    elif x == "8":
+        return "八"
+    elif x == "9":
+        return "九"
+    elif x == "characters":
+        return "万"
+    elif x == "dots":
+        return "筒"
+    elif x == "bamboo":
+        return "条"
+    else:
+        return "Unknown"
 
